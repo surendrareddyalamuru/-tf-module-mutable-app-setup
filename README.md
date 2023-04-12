@@ -1,1 +1,1 @@
-# -tf-module-mutable-app-setup
+# tf-module-mutable-app-setup
