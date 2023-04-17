@@ -9,3 +9,5 @@ variable "BASTION_NODE" {}
 variable "app_port_no" {}
 variable "vpc_cidr" {}
 variable "PROMETHEUS_NODE" {}
+variable "private_zone_id" {}
+variable "alb" {}
