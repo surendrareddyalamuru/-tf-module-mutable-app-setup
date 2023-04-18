@@ -32,20 +32,17 @@ resource "aws_lb_listener_rule" "rule" {
 
 }
 
-resource "aws_lb_listener_rule" "rule-frontend" {
-  count        = var.type == "frontend" ? 1 : 0
-  listener_arn = var.alb["public"].lb_listener_arn
-  priority     = var.lb_listener_priority
 
-  action {
+resource "aws_lb_listener" "public-https" {
+  count             = var.type == "frontend" ? 1 : 0
+  load_balancer_arn = var.alb["public"].lb_arn
+  port              = "443"
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08"
+  certificate_arn   = var.ACM_ARN
+
+  default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.main.arn
   }
-
-  condition {
-    host_header {
-      values = ["${var.env}.surendra95.online"]
-    }
-  }
-
 }
